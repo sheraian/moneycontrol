@@ -1,4 +1,5 @@
 import json
+import time
 from wsgiref import headers
 
 import scrapy
@@ -7,124 +8,68 @@ from pip._internal.utils import urls
 
 class MyspiderSpider(scrapy.Spider):
     name = "myspider"
-    allowed_domains = ["moneycontrol.com"]
+    # allowed_domains = ["moneycontrol.com"]
     def start_requests(self):
         # url="https://www.moneycontrol.com/india/stockpricequote/A"
 
-        cookies={
-            'A18ID': '1735825619250.264983',
-            'MC_PPID_LOGIC': 'normaluser21193130293479932mcids',
-            '_gid': 'GA1.2.1512463253.1735825620',
-            '_io_ht_r': '1',
-            '__io_r': 'freelancer.com',
-            '__io_first_source': 'freelancer.com',
-            '__io_lv': '1735825621160',
-            '__io': '672340ac8.2e690a47c_1735825621162',
-            '__io_pr_utm_campaign': '%7B%22referrerHostname%22%3A%22www.freelancer.com%22%7D',
-            '__io_unique_43938': '2',
-            '_cb': 'uEdv6_posICHZXJZ',
-            '_sharedID': 'df2d8ae1-40ca-4aa9-a03f-7dbd8fd3a35a',
-            '_sharedID_cst': 'zix7LPQsHA%3D%3D',
-            'WZRK_G': 'b6165915d3ec415f91f896a307bcae61',
-            '_cc_id': '68ba02dc438241c4aef7a25b279dc8cf',
-            'panoramaId_expiry': '1736430442310',
-            'panoramaId': '2f21661ee2e28a9bb29268d3a07f4945a7028febb4248374d9d2a87192b9f24d',
-            'panoramaIdType': 'panoIndiv',
-            'cto_bundle': 'Mn8lq18xZjJFQ3pXQXJoNUlUY3JDcVNpeThmJTJGcnk5ejhDZk80RUZzaTJzdzJxMmhMa0o4QnNha1BOaUVlNHNqd1lrYzI5bVhTQ0xUUVFtNzFuMmd0R1EwdHhRYlkwU0gydlpqbk5DOVg4bGZTV2QlMkIzJTJGS2tWZnI3JTJGNFdkc3pNNkhUOWtBTEludVVYTWFYSTR0VHNRSFFDRTFjSHJYN21vaDdzTzZyUVhPJTJGdjZvZUJHYXZQdDFXMVNTN1FjOUpyZFQ5NTgwaFFtMmJCbTg5V1J3cFlWOWRWa00xdURzOG1QcllLRlJIQlUyandicHJqTEUwRDJ3U2FiRUhQZU5JeGZOa0lyYWclMkJYbzFtWHJqYW9NSUduSG1CMVFBQSUzRCUzRA',
-            '__io_session_id': '5355c759f.d1b1a83f3_1735842400408',
-            '__io_visit_43938': '1',
-            '__io_d': '2_883510103',
-            '__io_nav_state43938': '%7B%22current%22%3A%22%2Findia%2Fstockpricequote%2FA%22%2C%22currentDomain%22%3A%22www.moneycontrol.com%22%2C%22previous%22%3A%22%2Findia%2Fstockpricequote%2FA%22%2C%22previousDomain%22%3A%22www.moneycontrol.com%22%7D',
-            'PHPSESSID': 'u78mresd4e1739ehomt51hpic7',
-            'MC_INTERSTITIAL_DFP_AD_LOGIC_20250102': '{"0":"https://www.moneycontrol.com/india/stockpricequote/miscellaneous/amfebcon/F03"}',
-            '_gcl_au': '1.1.1001301931.1735842582',
-            'nousersess': 'dou6dgdbdeystf1n',
-            '__gads': 'ID=875140f57be95c97:T=1735825634:RT=1735842764:S=ALNI_MZkP9ZL5-LQc1rKXKFNJaLJQwIKvw',
-            '__gpi': 'UID=00000fc3f3247ce6:T=1735825634:RT=1735842764:S=ALNI_MY-2qPSsiJQArerekf4hLtPQNiUPQ',
-            '__eoi': 'ID=9233f3eceb4d4cf0:T=1735825634:RT=1735842765:S=AA-AfjZ0mScKAKYyIrVLt0zXIKmf',
-            '_ga_HXEC5QES15': 'GS1.1.1735842601.1.1.1735842782.0.0.0',
-            '_ga_8J9SC9WB3T': 'GS1.1.1735842594.1.1.1735842784.60.0.0',
-            '_ga_4S48PBY299': 'GS1.1.1735842583.1.1.1735842786.60.0.0',
-            '_ga': 'GA1.2.230106381.1735825620',
-            'dtCookie': 'v_4_srv_7_sn_03B8B9632C75B2E3A9F89EE095E3F07B_perc_100000_ol_0_mul_1_app-3A15ca68b27f59163f_1',
-            '_chartbeat2': '.1735825621352.1735842837733.1.CyVYRIDI2hv8CYkCKFDbXmnaDIwY4C.1',
-            '_cb_svref': 'external',
-            'WZRK_S_86Z-5ZR-RK6Z': '%7B%22p%22%3A7%2C%22s%22%3A1735842467%2C%22t%22%3A1735842838%7D',
-            'FCNEC': '%5B%5B%22AKsRol9-FlNedoM1dZK1cuHqjLBjgVZZv0F6e8iw535VubERSX54JuPUXiKAmLcQQJf7Rc8gnFex3emUdebfTiJ8r-pk0ZvxGplbWCRt1cpfK0khI9ihoNsH8vk41NHs6weHn5CSz7kc-FZeOCD1UvE18L0vkZp3DA%3D%3D%22%5D%5D',
-        }
-        headers={
-            'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-            'accept-language': 'en-US,en;q=0.9',
-            'cache-control': 'max-age=0',
-            # 'cookie': 'A18ID=1735825619250.264983; MC_PPID_LOGIC=normaluser21193130293479932mcids; _gid=GA1.2.1512463253.1735825620; _io_ht_r=1; __io_r=freelancer.com; __io_first_source=freelancer.com; __io_lv=1735825621160; __io=672340ac8.2e690a47c_1735825621162; __io_pr_utm_campaign=%7B%22referrerHostname%22%3A%22www.freelancer.com%22%7D; __io_unique_43938=2; _cb=uEdv6_posICHZXJZ; _sharedID=df2d8ae1-40ca-4aa9-a03f-7dbd8fd3a35a; _sharedID_cst=zix7LPQsHA%3D%3D; WZRK_G=b6165915d3ec415f91f896a307bcae61; _cc_id=68ba02dc438241c4aef7a25b279dc8cf; panoramaId_expiry=1736430442310; panoramaId=2f21661ee2e28a9bb29268d3a07f4945a7028febb4248374d9d2a87192b9f24d; panoramaIdType=panoIndiv; cto_bundle=Mn8lq18xZjJFQ3pXQXJoNUlUY3JDcVNpeThmJTJGcnk5ejhDZk80RUZzaTJzdzJxMmhMa0o4QnNha1BOaUVlNHNqd1lrYzI5bVhTQ0xUUVFtNzFuMmd0R1EwdHhRYlkwU0gydlpqbk5DOVg4bGZTV2QlMkIzJTJGS2tWZnI3JTJGNFdkc3pNNkhUOWtBTEludVVYTWFYSTR0VHNRSFFDRTFjSHJYN21vaDdzTzZyUVhPJTJGdjZvZUJHYXZQdDFXMVNTN1FjOUpyZFQ5NTgwaFFtMmJCbTg5V1J3cFlWOWRWa00xdURzOG1QcllLRlJIQlUyandicHJqTEUwRDJ3U2FiRUhQZU5JeGZOa0lyYWclMkJYbzFtWHJqYW9NSUduSG1CMVFBQSUzRCUzRA; __io_session_id=5355c759f.d1b1a83f3_1735842400408; __io_visit_43938=1; __io_d=2_883510103; __io_nav_state43938=%7B%22current%22%3A%22%2Findia%2Fstockpricequote%2FA%22%2C%22currentDomain%22%3A%22www.moneycontrol.com%22%2C%22previous%22%3A%22%2Findia%2Fstockpricequote%2FA%22%2C%22previousDomain%22%3A%22www.moneycontrol.com%22%7D; PHPSESSID=u78mresd4e1739ehomt51hpic7; MC_INTERSTITIAL_DFP_AD_LOGIC_20250102={"0":"https://www.moneycontrol.com/india/stockpricequote/miscellaneous/amfebcon/F03"}; _gcl_au=1.1.1001301931.1735842582; nousersess=dou6dgdbdeystf1n; __gads=ID=875140f57be95c97:T=1735825634:RT=1735842764:S=ALNI_MZkP9ZL5-LQc1rKXKFNJaLJQwIKvw; __gpi=UID=00000fc3f3247ce6:T=1735825634:RT=1735842764:S=ALNI_MY-2qPSsiJQArerekf4hLtPQNiUPQ; __eoi=ID=9233f3eceb4d4cf0:T=1735825634:RT=1735842765:S=AA-AfjZ0mScKAKYyIrVLt0zXIKmf; _ga_HXEC5QES15=GS1.1.1735842601.1.1.1735842782.0.0.0; _ga_8J9SC9WB3T=GS1.1.1735842594.1.1.1735842784.60.0.0; _ga_4S48PBY299=GS1.1.1735842583.1.1.1735842786.60.0.0; _ga=GA1.2.230106381.1735825620; dtCookie=v_4_srv_7_sn_03B8B9632C75B2E3A9F89EE095E3F07B_perc_100000_ol_0_mul_1_app-3A15ca68b27f59163f_1; _chartbeat2=.1735825621352.1735842837733.1.CyVYRIDI2hv8CYkCKFDbXmnaDIwY4C.1; _cb_svref=external; WZRK_S_86Z-5ZR-RK6Z=%7B%22p%22%3A7%2C%22s%22%3A1735842467%2C%22t%22%3A1735842838%7D; FCNEC=%5B%5B%22AKsRol9-FlNedoM1dZK1cuHqjLBjgVZZv0F6e8iw535VubERSX54JuPUXiKAmLcQQJf7Rc8gnFex3emUdebfTiJ8r-pk0ZvxGplbWCRt1cpfK0khI9ihoNsH8vk41NHs6weHn5CSz7kc-FZeOCD1UvE18L0vkZp3DA%3D%3D%22%5D%5D',
-            'priority': 'u=0, i',
-            'sec-ch-ua': '"Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
-            'sec-ch-ua-mobile': '?0',
-            'sec-ch-ua-platform': '"macOS"',
-            'sec-fetch-dest': 'document',
-            'sec-fetch-mode': 'navigate',
-            'sec-fetch-site': 'same-origin',
-            'sec-fetch-user': '?1',
-            'upgrade-insecure-requests': '1',
-            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
-        }
-        for char in range(65, 91):
-            print(chr(char))
-            yield scrapy.Request(url=f"https://www.moneycontrol.com/india/stockpricequote/{chr(char)}", headers=headers, cookies=cookies, callback=self.parse)
-
-
-    def parse(self, response):
-        links = response.xpath('//a[@class="bl_12"]/@href').getall()
-        # print(links)
-        print(response.status)
-        print(len(links))
         cookies = {
             'A18ID': '1735825619250.264983',
             'MC_PPID_LOGIC': 'normaluser21193130293479932mcids',
-            '_gid': 'GA1.2.1512463253.1735825620',
-            '_io_ht_r': '1',
             '__io_r': 'freelancer.com',
             '__io_first_source': 'freelancer.com',
-            '__io_lv': '1735825621160',
             '__io': '672340ac8.2e690a47c_1735825621162',
             '__io_pr_utm_campaign': '%7B%22referrerHostname%22%3A%22www.freelancer.com%22%7D',
-            '__io_unique_43938': '2',
             '_cb': 'uEdv6_posICHZXJZ',
-            '_sharedID': 'df2d8ae1-40ca-4aa9-a03f-7dbd8fd3a35a',
-            '_sharedID_cst': 'zix7LPQsHA%3D%3D',
             'WZRK_G': 'b6165915d3ec415f91f896a307bcae61',
             '_cc_id': '68ba02dc438241c4aef7a25b279dc8cf',
-            'panoramaId_expiry': '1736430442310',
-            'panoramaId': '2f21661ee2e28a9bb29268d3a07f4945a7028febb4248374d9d2a87192b9f24d',
-            'panoramaIdType': 'panoIndiv',
-            'cto_bundle': 'Mn8lq18xZjJFQ3pXQXJoNUlUY3JDcVNpeThmJTJGcnk5ejhDZk80RUZzaTJzdzJxMmhMa0o4QnNha1BOaUVlNHNqd1lrYzI5bVhTQ0xUUVFtNzFuMmd0R1EwdHhRYlkwU0gydlpqbk5DOVg4bGZTV2QlMkIzJTJGS2tWZnI3JTJGNFdkc3pNNkhUOWtBTEludVVYTWFYSTR0VHNRSFFDRTFjSHJYN21vaDdzTzZyUVhPJTJGdjZvZUJHYXZQdDFXMVNTN1FjOUpyZFQ5NTgwaFFtMmJCbTg5V1J3cFlWOWRWa00xdURzOG1QcllLRlJIQlUyandicHJqTEUwRDJ3U2FiRUhQZU5JeGZOa0lyYWclMkJYbzFtWHJqYW9NSUduSG1CMVFBQSUzRCUzRA',
-            '__io_session_id': '5355c759f.d1b1a83f3_1735842400408',
-            'PHPSESSID': 'u78mresd4e1739ehomt51hpic7',
             '_gcl_au': '1.1.1001301931.1735842582',
-            'nousersess': 'dou6dgdbdeystf1n',
-            'MC_INTERSTITIAL_DFP_AD_LOGIC_20250102': '{"0":"https://www.moneycontrol.com/india/stockpricequote/miscellaneous/amfebcon/F03","1":"https://www.moneycontrol.com/india/stockpricequote/finance-leasinghire-purchase/armanfinancialservices/AFS04"}',
-            '_ga_4S48PBY299': 'GS1.1.1735842583.1.1.1735843566.60.0.0',
-            '__gads': 'ID=875140f57be95c97:T=1735825634:RT=1735843575:S=ALNI_MZkP9ZL5-LQc1rKXKFNJaLJQwIKvw',
-            '__gpi': 'UID=00000fc3f3247ce6:T=1735825634:RT=1735843575:S=ALNI_MY-2qPSsiJQArerekf4hLtPQNiUPQ',
-            '__eoi': 'ID=9233f3eceb4d4cf0:T=1735825634:RT=1735843575:S=AA-AfjZ0mScKAKYyIrVLt0zXIKmf',
-            'WZRK_S_86Z-5ZR-RK6Z': '%7B%22p%22%3A9%2C%22s%22%3A1735842467%2C%22t%22%3A1735843576%7D',
-            '_chartbeat2': '.1735825621352.1735843578332.1.BT1I7mD5GFsAx5Hg_DfQFTD1SK3Y.1',
-            '_cb_svref': 'external',
-            'dtCookie': 'v_4_srv_2_sn_03B8B9632C75B2E3A9F89EE095E3F07B_perc_100000_ol_0_mul_1_app-3A15ca68b27f59163f_1',
-            'RE_KJ_CC': 'XvZbbTwv',
-            'FCNEC': '%5B%5B%22AKsRol_sceUNlIUM519HBOgSmBNLMNeuNzfVQ6dpru0Qm-OYglfYGm6ZrKgEt2t5mbMAWxwROonWX5OYSh-VAa_TAW3jupwX9z0lXPr8yeoEXL7kxyNzg-rLPXAEGVnu_zffojUiJ-GkcfUOILaZG28N4dt1a_Nn2A%3D%3D%22%5D%5D',
+            '__utmz': '1.1737917515.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)',
+            '_ga_HXEC5QES15': 'GS1.1.1737924438.5.0.1737924438.0.0.0',
+            '_ga_8J9SC9WB3T': 'GS1.1.1737924403.5.1.1737924457.6.0.0',
+            '__utma': '1.230106381.1735825620.1737921553.1738156826.3',
+            '__gads': 'ID=875140f57be95c97:T=1735825634:RT=1738156829:S=ALNI_MZkP9ZL5-LQc1rKXKFNJaLJQwIKvw',
+            '__gpi': 'UID=00000fc3f3247ce6:T=1735825634:RT=1738156829:S=ALNI_MY-2qPSsiJQArerekf4hLtPQNiUPQ',
+            '__eoi': 'ID=9233f3eceb4d4cf0:T=1735825634:RT=1738156829:S=AA-AfjZ0mScKAKYyIrVLt0zXIKmf',
+            '_is_in': '0',
+            'verify': '1%24%24%23%23%24%241',
+            'nnmc': 'DURGESH+Nemade',
+            'UIDHASH': '74d2875064aeb528adcba5db48ca5e415f29765f538b2b8e324b39da8751877d',
+            'token-normal': 'xGQW9izz4G65y9e1ZoqT5CyjI7h250Zm33zQhJh4WX15GJF78u1otbyVRbjdioHQAErGuBzvRWcHtQwqOWboUQ',
+            'tvuid': 'Ym1WdFlXUmxaSFZ5WjJWemFBPT0%3D',
+            '__token__': 'st=1738156933~exp=1738160533~acl=/*~data=__1__1766860199~hmac=3c374466cb84e5409a8f91acdea9b82feeb57a4b39fbce15a0f3dd169498170e',
+            'mcpro': '1',
+            '_abck': '5DFAB8E02FBA9E0A2A8C8E706F58E13F~0~YAAQEKInF+TeErCUAQAAPQM6sg2EW37o/FNHYFMDlS44SKaHmrESvfbciReVv0vzBf9V30/Z9/2JjML3doOPDSQoUtaIhv4vckSrlccbdEuXLvXXymVvlsyK3Za03TpU9xMAnv9+4t8DGvxKa+rA7ZFGa4d02Kjd8chKJOvqeewvmsRCsM6s90tC32XQeMIZgyqD2gBsc5Z5pHntwgsCGLHJpkVMyAwjry+LXFoR1PCw19P507VqmoEWIH2nzcyWfNqWpxJ1e4k+1fgcAKwOWnYyIwqQAxd9cGNAvmOEibcx8zuP3PgeV/fOrQipmK5jBUkN/GnaAKdFLd4qG9NWivb4Q2hnAdGg3g282kGjzt21gZi9qPaSlzODK9GKSS4Whrbu41MYudY9NZpoTn1KwOubZlCwF2bRMtMrysB6XkavwWxF9ea1DYE9rXBu9qkzNv5SP+FDILE9xEDPvlFRFhwFxSneK+DWQxVzwGKw6mrZbQASZ93n+YVpoj6s1ipHc+WWDSlVURY2tDzvyE8u7b2AphfQeEWkxAo8cIYw9MYuZ3BjjVEieW3GlDyk9KY6BsfDc7y2YXrVr5+jp5eIiLhvEjMI3WVTJxduerJ7Naq2f5GashIvNIXxQg7kZJX7O7JCi8gFXiNzMkGw/qyDY2XkxPVMQOE5+YtJw+eyZdHjolLh7BvD1fChAOuZDt6IkgfNfXs6n8VP1hV4fklZifI=~-1~-1~-1',
+            '_ga_4S48PBY299': 'deleted',
+            'nousersess': '81b9lm01yvbb0fjq',
+            'stocks': '|Cyient.DLM_CD06~24%7CJ.G.Chemicals_CL10%7E6%7CABB.India_ABB%7E29%7CA.K.Spintex_AKS01%7E1%7CA.K.Capital.Ser_AKC01%7E2%7CUflex_FI08%7E1%7CA.G.Universal_U01%7E5%7CN_JB02%7E8%7C_F04%7E18%7C_U01%7E6',
+            'dtCookie': 'v_4_srv_3_sn_01E29794A8D36D94350FDA86DA52B61E_perc_100000_ol_0_mul_1_app-3A15ca68b27f59163f_1',
+            '_gid': 'GA1.2.1444747103.1738914975',
+            'PHPSESSID': 'mug5cci05ou0c2iktq1t08o4m0',
+            'cto_bundle': 'toqJ0V8xZjJFQ3pXQXJoNUlUY3JDcVNpeThZJTJGRXVQRTZKZDF5OTUlMkZjMVJVeWJpQSUyRmJjYTBpWiUyRnJyQWdpeWZJJTJGNm9OU2xDNDNONkVZOVlCeWtYWlpvQkd0S3RwZW84ZUV1ZUNmR0JrWXdjTmpsMlVBUllGbzJ5SDR4amxQN05qalExUjlBUlZ0TXd6cXVQRENKalIycklGUEdRSUFYYmhIdCUyQlF0eFh6JTJGa21oUFR2VlVzdXRiYU5rRUpyQVlaaTZHRUw4RzQyck0lMkJJd24lMkJLNTN5bXlzaGxGWlltaEo5NUElMkJoQ1R0UklnJTJGR3loVTZ6ZURrOXg2NGdhY29ibFVTMWxwVWtVYnpFTXhsYTJSSHJMRFdtekxMSUhEWUElM0QlM0Q',
+            'FCNEC': '%5B%5B%22AKsRol-1auT8_Xkxjk_mMZZZBU3lwkouNi6_Cdx9V3igeq6fKYiX8-R6jPijbvGRshkqNhxTqfUZKp6eq5KjDwKaOx0VMfiQp02Jm-HEJCkt-kpGaiPQIuzPoOn8RrpynESeawyxCY1Kw0OMTNn79bwOhqQDJZceow%3D%3D%22%5D%5D',
+            '_ga_4S48PBY299': 'GS1.1.1738914975.22.1.1738915022.13.0.0',
             '_ga': 'GA1.2.230106381.1735825620',
-            '_ga_8J9SC9WB3T': 'GS1.1.1735842594.1.1.1735843817.32.0.0',
-            '_ga_HXEC5QES15': 'GS1.1.1735842601.1.1.1735843817.0.0.0',
+            '_io_ht_r': '1',
+            '__io_session_id': '3f8a3ea39.2c2d248fc_1738915027054',
+            '__io_unique_43938': '7',
+            '__io_visit_43938': '1',
+            '_gat': '1',
+            '__io_d': '3_3330783724',
+            '__io_nav_state43938': '%7B%22current%22%3A%22%2Findia%2Fstockpricequote%2F%22%2C%22currentDomain%22%3A%22www.moneycontrol.com%22%2C%22previous%22%3A%22%2Findia%2Fstockpricequote%2FA%22%2C%22previousDomain%22%3A%22www.moneycontrol.com%22%7D',
+            '_chartbeat2': '.1735825621352.1738915052413.1001101110000111.CE0MfmBHX9KNDXWTW7B99WB0mxjNy.1',
+            '_cb_svref': 'external',
+            'WZRK_S_86Z-5ZR-RK6Z': '%7B%22p%22%3A4%2C%22s%22%3A1738914981%2C%22t%22%3A1738915054%7D',
+            '_chartbeat5': '99|1015|%2Findia%2Fstockpricequote%2F|https%3A%2F%2Fwww.moneycontrol.com%2Findia%2Fstockpricequote%2FA|8Jn12DiZR08Dnl9DlCfqK7XeP0qT||c|CEF6fcC0282YCVndmFDDkQYzxqdUn|moneycontrol.com|',
+            '__io_lv': '1738915068104',
         }
 
         headers = {
             'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
             'accept-language': 'en-US,en;q=0.9',
-            'cache-control': 'max-age=0',
-            # 'cookie': 'A18ID=1735825619250.264983; MC_PPID_LOGIC=normaluser21193130293479932mcids; _gid=GA1.2.1512463253.1735825620; _io_ht_r=1; __io_r=freelancer.com; __io_first_source=freelancer.com; __io_lv=1735825621160; __io=672340ac8.2e690a47c_1735825621162; __io_pr_utm_campaign=%7B%22referrerHostname%22%3A%22www.freelancer.com%22%7D; __io_unique_43938=2; _cb=uEdv6_posICHZXJZ; _sharedID=df2d8ae1-40ca-4aa9-a03f-7dbd8fd3a35a; _sharedID_cst=zix7LPQsHA%3D%3D; WZRK_G=b6165915d3ec415f91f896a307bcae61; _cc_id=68ba02dc438241c4aef7a25b279dc8cf; panoramaId_expiry=1736430442310; panoramaId=2f21661ee2e28a9bb29268d3a07f4945a7028febb4248374d9d2a87192b9f24d; panoramaIdType=panoIndiv; cto_bundle=Mn8lq18xZjJFQ3pXQXJoNUlUY3JDcVNpeThmJTJGcnk5ejhDZk80RUZzaTJzdzJxMmhMa0o4QnNha1BOaUVlNHNqd1lrYzI5bVhTQ0xUUVFtNzFuMmd0R1EwdHhRYlkwU0gydlpqbk5DOVg4bGZTV2QlMkIzJTJGS2tWZnI3JTJGNFdkc3pNNkhUOWtBTEludVVYTWFYSTR0VHNRSFFDRTFjSHJYN21vaDdzTzZyUVhPJTJGdjZvZUJHYXZQdDFXMVNTN1FjOUpyZFQ5NTgwaFFtMmJCbTg5V1J3cFlWOWRWa00xdURzOG1QcllLRlJIQlUyandicHJqTEUwRDJ3U2FiRUhQZU5JeGZOa0lyYWclMkJYbzFtWHJqYW9NSUduSG1CMVFBQSUzRCUzRA; __io_session_id=5355c759f.d1b1a83f3_1735842400408; PHPSESSID=u78mresd4e1739ehomt51hpic7; _gcl_au=1.1.1001301931.1735842582; nousersess=dou6dgdbdeystf1n; MC_INTERSTITIAL_DFP_AD_LOGIC_20250102={"0":"https://www.moneycontrol.com/india/stockpricequote/miscellaneous/amfebcon/F03","1":"https://www.moneycontrol.com/india/stockpricequote/finance-leasinghire-purchase/armanfinancialservices/AFS04"}; _ga_4S48PBY299=GS1.1.1735842583.1.1.1735843566.60.0.0; __gads=ID=875140f57be95c97:T=1735825634:RT=1735843575:S=ALNI_MZkP9ZL5-LQc1rKXKFNJaLJQwIKvw; __gpi=UID=00000fc3f3247ce6:T=1735825634:RT=1735843575:S=ALNI_MY-2qPSsiJQArerekf4hLtPQNiUPQ; __eoi=ID=9233f3eceb4d4cf0:T=1735825634:RT=1735843575:S=AA-AfjZ0mScKAKYyIrVLt0zXIKmf; WZRK_S_86Z-5ZR-RK6Z=%7B%22p%22%3A9%2C%22s%22%3A1735842467%2C%22t%22%3A1735843576%7D; _chartbeat2=.1735825621352.1735843578332.1.BT1I7mD5GFsAx5Hg_DfQFTD1SK3Y.1; _cb_svref=external; dtCookie=v_4_srv_2_sn_03B8B9632C75B2E3A9F89EE095E3F07B_perc_100000_ol_0_mul_1_app-3A15ca68b27f59163f_1; RE_KJ_CC=XvZbbTwv; FCNEC=%5B%5B%22AKsRol_sceUNlIUM519HBOgSmBNLMNeuNzfVQ6dpru0Qm-OYglfYGm6ZrKgEt2t5mbMAWxwROonWX5OYSh-VAa_TAW3jupwX9z0lXPr8yeoEXL7kxyNzg-rLPXAEGVnu_zffojUiJ-GkcfUOILaZG28N4dt1a_Nn2A%3D%3D%22%5D%5D; _ga=GA1.2.230106381.1735825620; _ga_8J9SC9WB3T=GS1.1.1735842594.1.1.1735843817.32.0.0; _ga_HXEC5QES15=GS1.1.1735842601.1.1.1735843817.0.0.0',
+            # 'cookie': 'A18ID=1735825619250.264983; MC_PPID_LOGIC=normaluser21193130293479932mcids; __io_r=freelancer.com; __io_first_source=freelancer.com; __io=672340ac8.2e690a47c_1735825621162; __io_pr_utm_campaign=%7B%22referrerHostname%22%3A%22www.freelancer.com%22%7D; _cb=uEdv6_posICHZXJZ; WZRK_G=b6165915d3ec415f91f896a307bcae61; _cc_id=68ba02dc438241c4aef7a25b279dc8cf; _gcl_au=1.1.1001301931.1735842582; __utmz=1.1737917515.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); _ga_HXEC5QES15=GS1.1.1737924438.5.0.1737924438.0.0.0; _ga_8J9SC9WB3T=GS1.1.1737924403.5.1.1737924457.6.0.0; __utma=1.230106381.1735825620.1737921553.1738156826.3; __gads=ID=875140f57be95c97:T=1735825634:RT=1738156829:S=ALNI_MZkP9ZL5-LQc1rKXKFNJaLJQwIKvw; __gpi=UID=00000fc3f3247ce6:T=1735825634:RT=1738156829:S=ALNI_MY-2qPSsiJQArerekf4hLtPQNiUPQ; __eoi=ID=9233f3eceb4d4cf0:T=1735825634:RT=1738156829:S=AA-AfjZ0mScKAKYyIrVLt0zXIKmf; _is_in=0; verify=1%24%24%23%23%24%241; nnmc=DURGESH+Nemade; UIDHASH=74d2875064aeb528adcba5db48ca5e415f29765f538b2b8e324b39da8751877d; token-normal=xGQW9izz4G65y9e1ZoqT5CyjI7h250Zm33zQhJh4WX15GJF78u1otbyVRbjdioHQAErGuBzvRWcHtQwqOWboUQ; tvuid=Ym1WdFlXUmxaSFZ5WjJWemFBPT0%3D; __token__=st=1738156933~exp=1738160533~acl=/*~data=__1__1766860199~hmac=3c374466cb84e5409a8f91acdea9b82feeb57a4b39fbce15a0f3dd169498170e; mcpro=1; _abck=5DFAB8E02FBA9E0A2A8C8E706F58E13F~0~YAAQEKInF+TeErCUAQAAPQM6sg2EW37o/FNHYFMDlS44SKaHmrESvfbciReVv0vzBf9V30/Z9/2JjML3doOPDSQoUtaIhv4vckSrlccbdEuXLvXXymVvlsyK3Za03TpU9xMAnv9+4t8DGvxKa+rA7ZFGa4d02Kjd8chKJOvqeewvmsRCsM6s90tC32XQeMIZgyqD2gBsc5Z5pHntwgsCGLHJpkVMyAwjry+LXFoR1PCw19P507VqmoEWIH2nzcyWfNqWpxJ1e4k+1fgcAKwOWnYyIwqQAxd9cGNAvmOEibcx8zuP3PgeV/fOrQipmK5jBUkN/GnaAKdFLd4qG9NWivb4Q2hnAdGg3g282kGjzt21gZi9qPaSlzODK9GKSS4Whrbu41MYudY9NZpoTn1KwOubZlCwF2bRMtMrysB6XkavwWxF9ea1DYE9rXBu9qkzNv5SP+FDILE9xEDPvlFRFhwFxSneK+DWQxVzwGKw6mrZbQASZ93n+YVpoj6s1ipHc+WWDSlVURY2tDzvyE8u7b2AphfQeEWkxAo8cIYw9MYuZ3BjjVEieW3GlDyk9KY6BsfDc7y2YXrVr5+jp5eIiLhvEjMI3WVTJxduerJ7Naq2f5GashIvNIXxQg7kZJX7O7JCi8gFXiNzMkGw/qyDY2XkxPVMQOE5+YtJw+eyZdHjolLh7BvD1fChAOuZDt6IkgfNfXs6n8VP1hV4fklZifI=~-1~-1~-1; _ga_4S48PBY299=deleted; nousersess=81b9lm01yvbb0fjq; stocks=|Cyient.DLM_CD06~24%7CJ.G.Chemicals_CL10%7E6%7CABB.India_ABB%7E29%7CA.K.Spintex_AKS01%7E1%7CA.K.Capital.Ser_AKC01%7E2%7CUflex_FI08%7E1%7CA.G.Universal_U01%7E5%7CN_JB02%7E8%7C_F04%7E18%7C_U01%7E6; dtCookie=v_4_srv_3_sn_01E29794A8D36D94350FDA86DA52B61E_perc_100000_ol_0_mul_1_app-3A15ca68b27f59163f_1; _gid=GA1.2.1444747103.1738914975; PHPSESSID=mug5cci05ou0c2iktq1t08o4m0; cto_bundle=toqJ0V8xZjJFQ3pXQXJoNUlUY3JDcVNpeThZJTJGRXVQRTZKZDF5OTUlMkZjMVJVeWJpQSUyRmJjYTBpWiUyRnJyQWdpeWZJJTJGNm9OU2xDNDNONkVZOVlCeWtYWlpvQkd0S3RwZW84ZUV1ZUNmR0JrWXdjTmpsMlVBUllGbzJ5SDR4amxQN05qalExUjlBUlZ0TXd6cXVQRENKalIycklGUEdRSUFYYmhIdCUyQlF0eFh6JTJGa21oUFR2VlVzdXRiYU5rRUpyQVlaaTZHRUw4RzQyck0lMkJJd24lMkJLNTN5bXlzaGxGWlltaEo5NUElMkJoQ1R0UklnJTJGR3loVTZ6ZURrOXg2NGdhY29ibFVTMWxwVWtVYnpFTXhsYTJSSHJMRFdtekxMSUhEWUElM0QlM0Q; FCNEC=%5B%5B%22AKsRol-1auT8_Xkxjk_mMZZZBU3lwkouNi6_Cdx9V3igeq6fKYiX8-R6jPijbvGRshkqNhxTqfUZKp6eq5KjDwKaOx0VMfiQp02Jm-HEJCkt-kpGaiPQIuzPoOn8RrpynESeawyxCY1Kw0OMTNn79bwOhqQDJZceow%3D%3D%22%5D%5D; _ga_4S48PBY299=GS1.1.1738914975.22.1.1738915022.13.0.0; _ga=GA1.2.230106381.1735825620; _io_ht_r=1; __io_session_id=3f8a3ea39.2c2d248fc_1738915027054; __io_unique_43938=7; __io_visit_43938=1; _gat=1; __io_d=3_3330783724; __io_nav_state43938=%7B%22current%22%3A%22%2Findia%2Fstockpricequote%2F%22%2C%22currentDomain%22%3A%22www.moneycontrol.com%22%2C%22previous%22%3A%22%2Findia%2Fstockpricequote%2FA%22%2C%22previousDomain%22%3A%22www.moneycontrol.com%22%7D; _chartbeat2=.1735825621352.1738915052413.1001101110000111.CE0MfmBHX9KNDXWTW7B99WB0mxjNy.1; _cb_svref=external; WZRK_S_86Z-5ZR-RK6Z=%7B%22p%22%3A4%2C%22s%22%3A1738914981%2C%22t%22%3A1738915054%7D; _chartbeat5=99|1015|%2Findia%2Fstockpricequote%2F|https%3A%2F%2Fwww.moneycontrol.com%2Findia%2Fstockpricequote%2FA|8Jn12DiZR08Dnl9DlCfqK7XeP0qT||c|CEF6fcC0282YCVndmFDDkQYzxqdUn|moneycontrol.com|; __io_lv=1738915068104',
             'priority': 'u=0, i',
-            'sec-ch-ua': '"Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
+            'referer': 'https://www.moneycontrol.com/india/stockpricequote/',
+            'sec-ch-ua': '"Not A(Brand";v="8", "Chromium";v="132", "Google Chrome";v="132"',
             'sec-ch-ua-mobile': '?0',
             'sec-ch-ua-platform': '"macOS"',
             'sec-fetch-dest': 'document',
@@ -132,13 +77,93 @@ class MyspiderSpider(scrapy.Spider):
             'sec-fetch-site': 'same-origin',
             'sec-fetch-user': '?1',
             'upgrade-insecure-requests': '1',
-            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36',
         }
+        # for char in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+        #      'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']:
+            # print(chr(char))
+        yield scrapy.Request(url=f"https://www.moneycontrol.com/india/stockpricequote/A", headers=headers, cookies=cookies, callback=self.parse ,)
+
+
+    def parse(self, response):
+        links = response.xpath('//a[@class="bl_12"]/@href').getall()
+
+
+
+        cookies = {
+            'A18ID': '1735825619250.264983',
+            'MC_PPID_LOGIC': 'normaluser21193130293479932mcids',
+            '__io_r': 'freelancer.com',
+            '__io_first_source': 'freelancer.com',
+            '__io': '672340ac8.2e690a47c_1735825621162',
+            '__io_pr_utm_campaign': '%7B%22referrerHostname%22%3A%22www.freelancer.com%22%7D',
+            '_cb': 'uEdv6_posICHZXJZ',
+            'WZRK_G': 'b6165915d3ec415f91f896a307bcae61',
+            '_cc_id': '68ba02dc438241c4aef7a25b279dc8cf',
+            '_gcl_au': '1.1.1001301931.1735842582',
+            '__utmz': '1.1737917515.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)',
+            '_ga_HXEC5QES15': 'GS1.1.1737924438.5.0.1737924438.0.0.0',
+            '_ga_8J9SC9WB3T': 'GS1.1.1737924403.5.1.1737924457.6.0.0',
+            '__utma': '1.230106381.1735825620.1737921553.1738156826.3',
+            '__gads': 'ID=875140f57be95c97:T=1735825634:RT=1738156829:S=ALNI_MZkP9ZL5-LQc1rKXKFNJaLJQwIKvw',
+            '__gpi': 'UID=00000fc3f3247ce6:T=1735825634:RT=1738156829:S=ALNI_MY-2qPSsiJQArerekf4hLtPQNiUPQ',
+            '__eoi': 'ID=9233f3eceb4d4cf0:T=1735825634:RT=1738156829:S=AA-AfjZ0mScKAKYyIrVLt0zXIKmf',
+            '_is_in': '0',
+            'verify': '1%24%24%23%23%24%241',
+            'nnmc': 'DURGESH+Nemade',
+            'UIDHASH': '74d2875064aeb528adcba5db48ca5e415f29765f538b2b8e324b39da8751877d',
+            'token-normal': 'xGQW9izz4G65y9e1ZoqT5CyjI7h250Zm33zQhJh4WX15GJF78u1otbyVRbjdioHQAErGuBzvRWcHtQwqOWboUQ',
+            'tvuid': 'Ym1WdFlXUmxaSFZ5WjJWemFBPT0%3D',
+            '__token__': 'st=1738156933~exp=1738160533~acl=/*~data=__1__1766860199~hmac=3c374466cb84e5409a8f91acdea9b82feeb57a4b39fbce15a0f3dd169498170e',
+            'mcpro': '1',
+            '_abck': '5DFAB8E02FBA9E0A2A8C8E706F58E13F~0~YAAQEKInF+TeErCUAQAAPQM6sg2EW37o/FNHYFMDlS44SKaHmrESvfbciReVv0vzBf9V30/Z9/2JjML3doOPDSQoUtaIhv4vckSrlccbdEuXLvXXymVvlsyK3Za03TpU9xMAnv9+4t8DGvxKa+rA7ZFGa4d02Kjd8chKJOvqeewvmsRCsM6s90tC32XQeMIZgyqD2gBsc5Z5pHntwgsCGLHJpkVMyAwjry+LXFoR1PCw19P507VqmoEWIH2nzcyWfNqWpxJ1e4k+1fgcAKwOWnYyIwqQAxd9cGNAvmOEibcx8zuP3PgeV/fOrQipmK5jBUkN/GnaAKdFLd4qG9NWivb4Q2hnAdGg3g282kGjzt21gZi9qPaSlzODK9GKSS4Whrbu41MYudY9NZpoTn1KwOubZlCwF2bRMtMrysB6XkavwWxF9ea1DYE9rXBu9qkzNv5SP+FDILE9xEDPvlFRFhwFxSneK+DWQxVzwGKw6mrZbQASZ93n+YVpoj6s1ipHc+WWDSlVURY2tDzvyE8u7b2AphfQeEWkxAo8cIYw9MYuZ3BjjVEieW3GlDyk9KY6BsfDc7y2YXrVr5+jp5eIiLhvEjMI3WVTJxduerJ7Naq2f5GashIvNIXxQg7kZJX7O7JCi8gFXiNzMkGw/qyDY2XkxPVMQOE5+YtJw+eyZdHjolLh7BvD1fChAOuZDt6IkgfNfXs6n8VP1hV4fklZifI=~-1~-1~-1',
+            '_ga_4S48PBY299': 'deleted',
+            'nousersess': '81b9lm01yvbb0fjq',
+            'stocks': '|Cyient.DLM_CD06~24%7CJ.G.Chemicals_CL10%7E6%7CABB.India_ABB%7E29%7CA.K.Spintex_AKS01%7E1%7CA.K.Capital.Ser_AKC01%7E2%7CUflex_FI08%7E1%7CA.G.Universal_U01%7E5%7CN_JB02%7E8%7C_F04%7E18%7C_U01%7E6',
+            'dtCookie': 'v_4_srv_3_sn_01E29794A8D36D94350FDA86DA52B61E_perc_100000_ol_0_mul_1_app-3A15ca68b27f59163f_1',
+            '_gid': 'GA1.2.1444747103.1738914975',
+            'PHPSESSID': 'mug5cci05ou0c2iktq1t08o4m0',
+            'cto_bundle': 'toqJ0V8xZjJFQ3pXQXJoNUlUY3JDcVNpeThZJTJGRXVQRTZKZDF5OTUlMkZjMVJVeWJpQSUyRmJjYTBpWiUyRnJyQWdpeWZJJTJGNm9OU2xDNDNONkVZOVlCeWtYWlpvQkd0S3RwZW84ZUV1ZUNmR0JrWXdjTmpsMlVBUllGbzJ5SDR4amxQN05qalExUjlBUlZ0TXd6cXVQRENKalIycklGUEdRSUFYYmhIdCUyQlF0eFh6JTJGa21oUFR2VlVzdXRiYU5rRUpyQVlaaTZHRUw4RzQyck0lMkJJd24lMkJLNTN5bXlzaGxGWlltaEo5NUElMkJoQ1R0UklnJTJGR3loVTZ6ZURrOXg2NGdhY29ibFVTMWxwVWtVYnpFTXhsYTJSSHJMRFdtekxMSUhEWUElM0QlM0Q',
+            'FCNEC': '%5B%5B%22AKsRol-1auT8_Xkxjk_mMZZZBU3lwkouNi6_Cdx9V3igeq6fKYiX8-R6jPijbvGRshkqNhxTqfUZKp6eq5KjDwKaOx0VMfiQp02Jm-HEJCkt-kpGaiPQIuzPoOn8RrpynESeawyxCY1Kw0OMTNn79bwOhqQDJZceow%3D%3D%22%5D%5D',
+            '_ga_4S48PBY299': 'GS1.1.1738914975.22.1.1738915022.13.0.0',
+            '_ga': 'GA1.2.230106381.1735825620',
+            '_io_ht_r': '1',
+            '__io_session_id': '3f8a3ea39.2c2d248fc_1738915027054',
+            '__io_unique_43938': '7',
+            '__io_visit_43938': '1',
+            '_cb_svref': 'external',
+            '__io_d': '4_883510103',
+            '__io_nav_state43938': '%7B%22current%22%3A%22%2Findia%2Fstockpricequote%2FA%22%2C%22currentDomain%22%3A%22www.moneycontrol.com%22%2C%22previous%22%3A%22%2Findia%2Fstockpricequote%2F%22%2C%22previousDomain%22%3A%22www.moneycontrol.com%22%7D',
+            '_chartbeat2': '.1735825621352.1738915071941.1001101110000111.CE0MfmBHX9KNDXWTW7B99WB0mxjNy.2',
+            'WZRK_S_86Z-5ZR-RK6Z': '%7B%22p%22%3A5%2C%22s%22%3A1738914981%2C%22t%22%3A1738915075%7D',
+            # '_chartbeat5': '22|1214|%2Findia%2Fstockpricequote%2FA|https%3A%2F%2Fwww.moneycontrol.com%2Findia%2Fstockpricequote%2Fmiscellaneous%2Famfebcon%2FF03|CYP2rIBFnap3DbLv09oMJwRC-rIQE||c|D7JToOCy8BoKD-Hd7iDTT3qmCqcr0I|moneycontrol.com|',
+            '__io_lv': '1738915335769',
+        }
+
+        headers = {
+            'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+            'accept-language': 'en-US,en;q=0.9',
+            # 'cookie': 'A18ID=1735825619250.264983; MC_PPID_LOGIC=normaluser21193130293479932mcids; __io_r=freelancer.com; __io_first_source=freelancer.com; __io=672340ac8.2e690a47c_1735825621162; __io_pr_utm_campaign=%7B%22referrerHostname%22%3A%22www.freelancer.com%22%7D; _cb=uEdv6_posICHZXJZ; WZRK_G=b6165915d3ec415f91f896a307bcae61; _cc_id=68ba02dc438241c4aef7a25b279dc8cf; _gcl_au=1.1.1001301931.1735842582; __utmz=1.1737917515.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); _ga_HXEC5QES15=GS1.1.1737924438.5.0.1737924438.0.0.0; _ga_8J9SC9WB3T=GS1.1.1737924403.5.1.1737924457.6.0.0; __utma=1.230106381.1735825620.1737921553.1738156826.3; __gads=ID=875140f57be95c97:T=1735825634:RT=1738156829:S=ALNI_MZkP9ZL5-LQc1rKXKFNJaLJQwIKvw; __gpi=UID=00000fc3f3247ce6:T=1735825634:RT=1738156829:S=ALNI_MY-2qPSsiJQArerekf4hLtPQNiUPQ; __eoi=ID=9233f3eceb4d4cf0:T=1735825634:RT=1738156829:S=AA-AfjZ0mScKAKYyIrVLt0zXIKmf; _is_in=0; verify=1%24%24%23%23%24%241; nnmc=DURGESH+Nemade; UIDHASH=74d2875064aeb528adcba5db48ca5e415f29765f538b2b8e324b39da8751877d; token-normal=xGQW9izz4G65y9e1ZoqT5CyjI7h250Zm33zQhJh4WX15GJF78u1otbyVRbjdioHQAErGuBzvRWcHtQwqOWboUQ; tvuid=Ym1WdFlXUmxaSFZ5WjJWemFBPT0%3D; __token__=st=1738156933~exp=1738160533~acl=/*~data=__1__1766860199~hmac=3c374466cb84e5409a8f91acdea9b82feeb57a4b39fbce15a0f3dd169498170e; mcpro=1; _abck=5DFAB8E02FBA9E0A2A8C8E706F58E13F~0~YAAQEKInF+TeErCUAQAAPQM6sg2EW37o/FNHYFMDlS44SKaHmrESvfbciReVv0vzBf9V30/Z9/2JjML3doOPDSQoUtaIhv4vckSrlccbdEuXLvXXymVvlsyK3Za03TpU9xMAnv9+4t8DGvxKa+rA7ZFGa4d02Kjd8chKJOvqeewvmsRCsM6s90tC32XQeMIZgyqD2gBsc5Z5pHntwgsCGLHJpkVMyAwjry+LXFoR1PCw19P507VqmoEWIH2nzcyWfNqWpxJ1e4k+1fgcAKwOWnYyIwqQAxd9cGNAvmOEibcx8zuP3PgeV/fOrQipmK5jBUkN/GnaAKdFLd4qG9NWivb4Q2hnAdGg3g282kGjzt21gZi9qPaSlzODK9GKSS4Whrbu41MYudY9NZpoTn1KwOubZlCwF2bRMtMrysB6XkavwWxF9ea1DYE9rXBu9qkzNv5SP+FDILE9xEDPvlFRFhwFxSneK+DWQxVzwGKw6mrZbQASZ93n+YVpoj6s1ipHc+WWDSlVURY2tDzvyE8u7b2AphfQeEWkxAo8cIYw9MYuZ3BjjVEieW3GlDyk9KY6BsfDc7y2YXrVr5+jp5eIiLhvEjMI3WVTJxduerJ7Naq2f5GashIvNIXxQg7kZJX7O7JCi8gFXiNzMkGw/qyDY2XkxPVMQOE5+YtJw+eyZdHjolLh7BvD1fChAOuZDt6IkgfNfXs6n8VP1hV4fklZifI=~-1~-1~-1; _ga_4S48PBY299=deleted; nousersess=81b9lm01yvbb0fjq; stocks=|Cyient.DLM_CD06~24%7CJ.G.Chemicals_CL10%7E6%7CABB.India_ABB%7E29%7CA.K.Spintex_AKS01%7E1%7CA.K.Capital.Ser_AKC01%7E2%7CUflex_FI08%7E1%7CA.G.Universal_U01%7E5%7CN_JB02%7E8%7C_F04%7E18%7C_U01%7E6; dtCookie=v_4_srv_3_sn_01E29794A8D36D94350FDA86DA52B61E_perc_100000_ol_0_mul_1_app-3A15ca68b27f59163f_1; _gid=GA1.2.1444747103.1738914975; PHPSESSID=mug5cci05ou0c2iktq1t08o4m0; cto_bundle=toqJ0V8xZjJFQ3pXQXJoNUlUY3JDcVNpeThZJTJGRXVQRTZKZDF5OTUlMkZjMVJVeWJpQSUyRmJjYTBpWiUyRnJyQWdpeWZJJTJGNm9OU2xDNDNONkVZOVlCeWtYWlpvQkd0S3RwZW84ZUV1ZUNmR0JrWXdjTmpsMlVBUllGbzJ5SDR4amxQN05qalExUjlBUlZ0TXd6cXVQRENKalIycklGUEdRSUFYYmhIdCUyQlF0eFh6JTJGa21oUFR2VlVzdXRiYU5rRUpyQVlaaTZHRUw4RzQyck0lMkJJd24lMkJLNTN5bXlzaGxGWlltaEo5NUElMkJoQ1R0UklnJTJGR3loVTZ6ZURrOXg2NGdhY29ibFVTMWxwVWtVYnpFTXhsYTJSSHJMRFdtekxMSUhEWUElM0QlM0Q; FCNEC=%5B%5B%22AKsRol-1auT8_Xkxjk_mMZZZBU3lwkouNi6_Cdx9V3igeq6fKYiX8-R6jPijbvGRshkqNhxTqfUZKp6eq5KjDwKaOx0VMfiQp02Jm-HEJCkt-kpGaiPQIuzPoOn8RrpynESeawyxCY1Kw0OMTNn79bwOhqQDJZceow%3D%3D%22%5D%5D; _ga_4S48PBY299=GS1.1.1738914975.22.1.1738915022.13.0.0; _ga=GA1.2.230106381.1735825620; _io_ht_r=1; __io_session_id=3f8a3ea39.2c2d248fc_1738915027054; __io_unique_43938=7; __io_visit_43938=1; _cb_svref=external; __io_d=4_883510103; __io_nav_state43938=%7B%22current%22%3A%22%2Findia%2Fstockpricequote%2FA%22%2C%22currentDomain%22%3A%22www.moneycontrol.com%22%2C%22previous%22%3A%22%2Findia%2Fstockpricequote%2F%22%2C%22previousDomain%22%3A%22www.moneycontrol.com%22%7D; _chartbeat2=.1735825621352.1738915071941.1001101110000111.CE0MfmBHX9KNDXWTW7B99WB0mxjNy.2; WZRK_S_86Z-5ZR-RK6Z=%7B%22p%22%3A5%2C%22s%22%3A1738914981%2C%22t%22%3A1738915075%7D; _chartbeat5=22|1214|%2Findia%2Fstockpricequote%2FA|https%3A%2F%2Fwww.moneycontrol.com%2Findia%2Fstockpricequote%2Fmiscellaneous%2Famfebcon%2FF03|CYP2rIBFnap3DbLv09oMJwRC-rIQE||c|D7JToOCy8BoKD-Hd7iDTT3qmCqcr0I|moneycontrol.com|; __io_lv=1738915335769',
+            'priority': 'u=0, i',
+            'referer': 'https://www.moneycontrol.com/india/stockpricequote/A',
+            'sec-ch-ua': '"Not A(Brand";v="8", "Chromium";v="132", "Google Chrome";v="132"',
+            'sec-ch-ua-mobile': '?0',
+            'sec-ch-ua-platform': '"macOS"',
+            'sec-fetch-dest': 'document',
+            'sec-fetch-mode': 'navigate',
+            'sec-fetch-site': 'same-origin',
+            'sec-fetch-user': '?1',
+            'upgrade-insecure-requests': '1',
+            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36',
+        }
+        print(len(links))
         for url in links:
-            yield scrapy.Request(url=url, callback=self.parse_detail, headers=headers, cookies=cookies)
+            if url:
+                yield scrapy.Request(url=url, callback=self.parse_detail, headers=headers, cookies=cookies)
 
 
     def parse_detail(self,response):
+
         URL = response.url
         parts = URL.split("/")
         scId = parts[-1]
